@@ -59,7 +59,13 @@ print("sunc test below")
 wait(1)
 wait(5)
 loadstring(game:HttpGet("https://github.com/SmilezReal/Executor-Tests/raw/refs/heads/main/sUncTest.lua",true))()
-loadstring(game:HttpGet("https://github.com/SmilezReal/Executor-Tests/raw/refs/heads/main/sUncTest.lua",true))()
+wait(1)
+game.StarterGui:SetCore("SendNotification", {
+    Title = "SUSVC.";
+    Text = "If The sUNC Test Fails, Re-Execute The Script And It Should Complete The 2nd Time.";
+    Duration = "5";
+    Callback = NotificationBindable;
+})
 wait(5)
 print("vuln test below")
 wait(1)
