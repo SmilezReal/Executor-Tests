@@ -5,12 +5,21 @@ local NotificationBindable = Instance.new("BindableFunction")
 NotificationBindable.OnInvoke = callback
 
 game.StarterGui:SetCore("SendNotification", {
-    Title = "Thanks For Using Smilez Unc, Sunc, And Vuln Checker.";
+    Title = "Thanks For Using SUSVC.";
     Text = "Loading...";
     Duration = "5";
     Callback = NotificationBindable;
 })
 wait(5)
+game.StarterGui:SetCore("SendNotification", {
+    Title = "Thanks For Using SUSVC.";
+    Text = "Executing Mobile Keyboard Incase Of Mobile.";
+    Duration = "5";
+    Callback = NotificationBindable;
+})
+wait(5)
+loadstring(game:HttpGet("https://github.com/SmilezReal/Executor-Tests/raw/refs/heads/main/mkwf9.lua"))()
+wait(2)
 game.StarterGui:SetCore("SendNotification", {
     Title = "SUSVC.";
     Text = "Loading Complete.";
