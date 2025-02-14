@@ -1,9 +1,3 @@
-local function callback(Text)
-end
-
-local NotificationBindable = Instance.new("BindableFunction")
-NotificationBindable.OnInvoke = callback
-
 game.StarterGui:SetCore("SendNotification", {
     Title = "Smilez-Unc-Sunc-And-Vuln-Test.";
     Text = "Press F9 To Open The Console.";
