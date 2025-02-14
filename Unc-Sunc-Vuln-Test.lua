@@ -1,3 +1,16 @@
+local function callback(Text)
+end
+
+local NotificationBindable = Instance.new("BindableFunction")
+NotificationBindable.OnInvoke = callback
+
+game.StarterGui:SetCore("SendNotification", {
+    Title = "Smilez-Unc-Sunc-And-Vuln-Test.";
+    Text = "Press F9 To Open The Console.";
+    Duration = "5";
+    Callback = NotificationBindable;
+})﻿
+
 print("unc test below")
 wait(1)
 print("unc test below")
