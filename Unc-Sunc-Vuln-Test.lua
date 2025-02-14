@@ -9,21 +9,21 @@ game.StarterGui:SetCore("SendNotification", {
     Text = "Loading...";
     Duration = "5";
     Callback = NotificationBindable;
-})﻿
+})
 wait(5)
 game.StarterGui:SetCore("SendNotification", {
     Title = "SUSVC.";
     Text = "Loading Complete.";
     Duration = "5";
     Callback = NotificationBindable;
-})﻿
+})
 wait(2)
 game.StarterGui:SetCore("SendNotification", {
     Title = "SUSVC.";
     Text = "Press F9 To Check The Console. Please Be Patient As Some Tests Can Take Up To 60 Seconds To Complete Depending On Your Internet Connection.";
-    Duration = "5";
+    Duration = "20";
     Callback = NotificationBindable;
-})﻿
+})
 
 print("unc test below")
 wait(1)
