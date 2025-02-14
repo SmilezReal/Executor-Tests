@@ -18,7 +18,7 @@ game.StarterGui:SetCore("SendNotification", {
     Callback = NotificationBindable;
 })
 wait(5)
-loadstring(game:HttpGet("https://github.com/SmilezReal/Executor-Tests/raw/refs/heads/main/mkwf9.lua"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/SmilezReal/Executor-Tests/refs/heads/main/mkwf9.lua"))()
 wait(2)
 game.StarterGui:SetCore("SendNotification", {
     Title = "SUSVC.";
