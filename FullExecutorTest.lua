@@ -11,14 +11,6 @@ game.StarterGui:SetCore("SendNotification", {
     Callback = NotificationBindable;
 })
 wait(5)
-game.StarterGui:SetCore("SendNotification", {
-    Title = "Thanks For Using SUSVC.";
-    Text = "Executing Mobile Keyboard Incase Of Mobile.";
-    Duration = "5";
-    Callback = NotificationBindable;
-})
-wait(5)
-loadstring(game:HttpGet("https://raw.githubusercontent.com/advxzivhsjjdhxhsidifvsh/mobkeyboard/main/main.txt", true))()
 wait(2)
 game.StarterGui:SetCore("SendNotification", {
     Title = "SUSVC.";
