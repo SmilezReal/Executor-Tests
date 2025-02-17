@@ -193,9 +193,9 @@ wait(5)
 print("S.E.T LVL Test Running... Please Wait...")
 
 if getidentity then
-    print("Execution Level: " .. getidentity())
+    print("Execution Level: " .. printidentity())
 elseif getscriptlevel then
-    print("Execution Level: " .. getscriptlevel())
+    print("Execution Level: " .. getsidentity())
 else
     print("Execution Level: Unknown (Unsupported Function)")
 end
