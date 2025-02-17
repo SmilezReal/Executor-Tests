@@ -18,7 +18,6 @@ game.StarterGui:SetCore("SendNotification", {
     Callback = NotificationBindable;
 })
 wait(4)
-game:GetService'StarterGui':SetCore("DevConsoleVisible", true)
 game.StarterGui:SetCore("SendNotification", {
     Title = "S.E.T";
     Text = "Console Opened.";
