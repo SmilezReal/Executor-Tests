@@ -63,11 +63,10 @@ test(function() game:GetService("Players"):ReportAbuseV3() end)
 
 -- Final Summary
 task.wait(1)
-local rate = math.round(pass / (pass + fail + unknown) * 100)
-local outOf = pass .. " out of " .. (pass + fail + unknown)
+local totalTests = pass + fail + unknown
+local rate = math.round(pass / totalTests * 100)
 
 print("\n")
-print("Vulnerability Check Summary - " .. tostring(identifyexecutor()))
-print("✅ Tested with a " .. rate .. "% vulnerability mitigations rate (" .. outOf .. ")")
+print("✅ " .. rate .. "% (" .. pass .. " out of " .. totalTests .. ") vulnerabilities mitigated")
 print("⛔ " .. fail .. " vulnerabilities not mitigated")
 print("⏺️ " .. unknown .. " vulnerabilities not tested")
