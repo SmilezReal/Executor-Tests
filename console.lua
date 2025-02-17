@@ -18,7 +18,8 @@ titleLabel.BackgroundTransparency = 1
 titleLabel.Text = "Custom S.E.T Logging GUI"
 titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
 titleLabel.TextSize = 18
-titleLabel.TextAlign = Enum.TextAlign.Center
+titleLabel.TextXAlignment = Enum.TextXAlignment.Center  -- Corrected to use TextXAlignment
+titleLabel.TextYAlignment = Enum.TextYAlignment.Center  -- Corrected to use TextYAlignment
 titleLabel.Parent = frame
 
 -- Close Button (X)
@@ -105,12 +106,3 @@ function print(...)
     -- Call the original print to ensure it still works in the output
     oldPrint(unpack(args))
 end
-
--- Function to destroy the GUI after a specified time (e.g., 30 seconds)
-local function autoDestroy()
-    wait(30)  -- Time in seconds before the GUI is destroyed
-    screenGui:Destroy()  -- Destroy the GUI after the wait
-end
-
--- Start the auto-destroy timer
-autoDestroy()
