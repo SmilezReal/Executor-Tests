@@ -18,8 +18,8 @@ titleLabel.BackgroundTransparency = 1
 titleLabel.Text = "Custom S.E.T Logging GUI"
 titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
 titleLabel.TextSize = 18
-titleLabel.TextXAlignment = Enum.TextXAlignment.Center
-titleLabel.TextYAlignment = Enum.TextYAlignment.Center
+titleLabel.TextXAlignment = Enum.TextXAlignment.Center  -- Corrected to use TextXAlignment
+titleLabel.TextYAlignment = Enum.TextYAlignment.Center  -- Corrected to use TextYAlignment
 titleLabel.Parent = frame
 
 -- Close Button (X)
@@ -54,11 +54,11 @@ contentFrame.Parent = scrollFrame
 
 -- Create a text label template that will hold the printed output
 local logLabel = Instance.new("TextLabel")
-logLabel.Size = UDim2.new(1, 0, 0, 20)  -- Default height for each label (adjusted later)
+logLabel.Size = UDim2.new(1, 0, 0, 20)  -- Each message's height
 logLabel.BackgroundTransparency = 1
 logLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
 logLabel.TextSize = 14
-logLabel.TextWrapped = true  -- Ensure long text wraps
+logLabel.TextWrapped = true
 logLabel.Text = ""  -- Start with an empty message
 logLabel.Parent = contentFrame
 
@@ -78,15 +78,11 @@ local function updateConsole(message)
     newLabel.Text = formattedMessage
     newLabel.Parent = contentFrame
 
-    -- Resize the label to fit the wrapped text
-    newLabel.TextBounds = Vector2.new(0, 0)  -- Clear TextBounds so it can calculate height dynamically
-    local newLabelHeight = newLabel.TextBounds.Y
-
     -- Position the label below the previous one
     newLabel.Position = UDim2.new(0, 0, 0, currentPositionY)
 
-    -- Update the position for the next label and increase height accordingly
-    currentPositionY = currentPositionY + newLabelHeight
+    -- Update the position for the next label
+    currentPositionY = currentPositionY + newLabel.Size.Y.Offset
 
     -- Adjust the content frame height to fit the new message
     contentFrame.Size = UDim2.new(1, 0, 0, currentPositionY)
@@ -98,42 +94,16 @@ local function updateConsole(message)
     scrollFrame.CanvasPosition = Vector2.new(0, scrollFrame.CanvasSize.Y.Offset)
 end
 
--- Hook into the print function to update the custom console GUI
+-- Redirecting the print function to the custom console
 local oldPrint = print
 function print(...)
     -- Concatenate all the arguments into a string
     local args = {...}
     local message = table.concat(args, " ")
-
+    
     -- Update the custom console GUI with the new print message
     updateConsole(message)
-
+    
     -- Call the original print to ensure it still works in the output
     oldPrint(unpack(args))
-end
-
--- Hook into the warn function to update the custom console GUI
-local oldWarn = warn
-warn = function(...)
-    local args = {...}
-    local message = "[WARN] " .. table.concat(args, " ")
-    updateConsole(message)
-    oldWarn(unpack(args))  -- Ensure original warn behavior is preserved
-end
-
--- Hook into the error function to update the custom console GUI
-local oldError = error
-error = function(...)
-    local args = {...}
-    local message = "[ERROR] " .. table.concat(args, " ")
-    updateConsole(message)
-    oldError(unpack(args))  -- Ensure original error behavior is preserved
-end
-
--- Hook into the printidentity function to update the custom console GUI
-local oldPrintIdentity = printidentity
-printidentity = function()
-    local identity = oldPrintIdentity()
-    updateConsole("printidentity: " .. identity)
-    return identity
 end
