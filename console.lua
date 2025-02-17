@@ -77,7 +77,7 @@ local function updateConsole(message)
 
     -- Adjust the content frame height to fit the new message
     local currentHeight = contentFrame.Size.Y.Offset
-    contentFrame.Size = UDim2.new(1, 0, 0, currentHeight + 20)
+    contentFrame.Size = UDim2.new(1, 0, 0, currentHeight + newLabel.Size.Y.Offset)  -- Add the height of the new label
 
     -- Update the scrolling frame's canvas size to match the content frame height
     scrollFrame.CanvasSize = UDim2.new(0, 0, 0, contentFrame.Size.Y.Offset)
