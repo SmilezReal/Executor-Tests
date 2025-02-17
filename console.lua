@@ -98,21 +98,21 @@ local function updateConsole(message)
     scrollFrame.CanvasPosition = Vector2.new(0, scrollFrame.CanvasSize.Y.Offset)
 end
 
--- Redirecting the print function to the custom console
+-- Hook into the print function to update the custom console GUI
 local oldPrint = print
 function print(...)
     -- Concatenate all the arguments into a string
     local args = {...}
     local message = table.concat(args, " ")
-    
+
     -- Update the custom console GUI with the new print message
     updateConsole(message)
-    
+
     -- Call the original print to ensure it still works in the output
     oldPrint(unpack(args))
 end
 
--- Redirecting warn and error functions to capture all logs
+-- Hook into the warn function to update the custom console GUI
 local oldWarn = warn
 warn = function(...)
     local args = {...}
@@ -121,6 +121,7 @@ warn = function(...)
     oldWarn(unpack(args))  -- Ensure original warn behavior is preserved
 end
 
+-- Hook into the error function to update the custom console GUI
 local oldError = error
 error = function(...)
     local args = {...}
@@ -129,16 +130,10 @@ error = function(...)
     oldError(unpack(args))  -- Ensure original error behavior is preserved
 end
 
--- Redirecting printidentity to ensure it appears in the custom console
+-- Hook into the printidentity function to update the custom console GUI
 local oldPrintIdentity = printidentity
 printidentity = function()
     local identity = oldPrintIdentity()
     updateConsole("printidentity: " .. identity)
     return identity
-end
-
--- Constantly updating the GUI every 0.1 seconds (100ms)
-while true do
-    wait(0.1)  -- This will check for updates every 0.1 seconds
-    -- Any other functionality that needs to be updated frequently can be added here
 end
