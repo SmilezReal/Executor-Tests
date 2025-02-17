@@ -191,7 +191,15 @@ print("S.E.T LVL Test Starting...")
 print("--------------------------------------------------")
 wait(5)
 print("S.E.T LVL Test Running... Please Wait...")
-print("Execution Level: ", identifyexecutor and identifyexecutor() or "Unknown")
+
+if getidentity then
+    print("Execution Level: " .. getidentity())
+elseif getscriptlevel then
+    print("Execution Level: " .. getscriptlevel())
+else
+    print("Execution Level: Unknown (Unsupported Function)")
+end
+
 wait(5)
 print("--------------------------------------------------")
 print("S.E.T VULN Test Starting...")
