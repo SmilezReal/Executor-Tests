@@ -52,7 +52,7 @@ contentFrame.Position = UDim2.new(0, 0, 0, 0)
 contentFrame.BackgroundTransparency = 1
 contentFrame.Parent = scrollFrame
 
--- Create a text label that will hold the printed output
+-- Create a text label template that will hold the printed output
 local logLabel = Instance.new("TextLabel")
 logLabel.Size = UDim2.new(1, 0, 0, 20)  -- Each message's height
 logLabel.BackgroundTransparency = 1
@@ -61,6 +61,9 @@ logLabel.TextSize = 14
 logLabel.TextWrapped = true
 logLabel.Text = ""  -- Start with an empty message
 logLabel.Parent = contentFrame
+
+-- Variable to track the vertical position for each new label
+local currentPositionY = 0
 
 -- Function to update the console with new print messages
 local function updateConsole(message)
@@ -75,9 +78,14 @@ local function updateConsole(message)
     newLabel.Text = formattedMessage
     newLabel.Parent = contentFrame
 
+    -- Position the label below the previous one
+    newLabel.Position = UDim2.new(0, 0, 0, currentPositionY)
+
+    -- Update the position for the next label
+    currentPositionY = currentPositionY + newLabel.Size.Y.Offset
+
     -- Adjust the content frame height to fit the new message
-    local currentHeight = contentFrame.Size.Y.Offset
-    contentFrame.Size = UDim2.new(1, 0, 0, currentHeight + newLabel.Size.Y.Offset)  -- Add the height of the new label
+    contentFrame.Size = UDim2.new(1, 0, 0, currentPositionY)
 
     -- Update the scrolling frame's canvas size to match the content frame height
     scrollFrame.CanvasSize = UDim2.new(0, 0, 0, contentFrame.Size.Y.Offset)
