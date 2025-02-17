@@ -93,7 +93,7 @@ end
 
 -- Function to destroy the GUI after a specified time (e.g., 30 seconds)
 local function autoDestroy()
-    wait(30)  -- Time in seconds before the GUI is destroyed
+    wait(10)  -- Time in seconds before the GUI is destroyed
     screenGui:Destroy()  -- Destroy the GUI after the wait
 end
 
