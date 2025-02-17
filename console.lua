@@ -21,6 +21,21 @@ titleLabel.TextSize = 18
 titleLabel.TextAlign = Enum.TextAlign.Center
 titleLabel.Parent = frame
 
+-- Close Button (X)
+local closeButton = Instance.new("TextButton")
+closeButton.Size = UDim2.new(0, 30, 0, 30)
+closeButton.Position = UDim2.new(1, -35, 0, 5)  -- Positioned at the top right
+closeButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)  -- Red button
+closeButton.Text = "X"
+closeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+closeButton.TextSize = 18
+closeButton.Parent = frame
+
+-- Function to destroy the GUI when the X button is clicked
+closeButton.MouseButton1Click:Connect(function()
+    screenGui:Destroy()  -- Destroys the entire GUI
+end)
+
 -- Scrollable container for the logs
 local scrollFrame = Instance.new("ScrollingFrame")
 scrollFrame.Size = UDim2.new(1, 0, 0.9, 0)  -- Takes up most of the frame
@@ -93,7 +108,7 @@ end
 
 -- Function to destroy the GUI after a specified time (e.g., 30 seconds)
 local function autoDestroy()
-    wait(10)  -- Time in seconds before the GUI is destroyed
+    wait(30)  -- Time in seconds before the GUI is destroyed
     screenGui:Destroy()  -- Destroy the GUI after the wait
 end
 
