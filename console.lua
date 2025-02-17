@@ -54,11 +54,11 @@ contentFrame.Parent = scrollFrame
 
 -- Create a text label template that will hold the printed output
 local logLabel = Instance.new("TextLabel")
-logLabel.Size = UDim2.new(1, 0, 0, 20)  -- Each message's height
+logLabel.Size = UDim2.new(1, 0, 0, 20)  -- Default height for each label (adjusted later)
 logLabel.BackgroundTransparency = 1
 logLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
 logLabel.TextSize = 14
-logLabel.TextWrapped = true
+logLabel.TextWrapped = true  -- Ensure long text wraps
 logLabel.Text = ""  -- Start with an empty message
 logLabel.Parent = contentFrame
 
@@ -78,11 +78,15 @@ local function updateConsole(message)
     newLabel.Text = formattedMessage
     newLabel.Parent = contentFrame
 
+    -- Resize the label to fit the wrapped text
+    newLabel.TextBounds = Vector2.new(0, 0)  -- Clear TextBounds so it can calculate height dynamically
+    local newLabelHeight = newLabel.TextBounds.Y
+
     -- Position the label below the previous one
     newLabel.Position = UDim2.new(0, 0, 0, currentPositionY)
 
-    -- Update the position for the next label
-    currentPositionY = currentPositionY + newLabel.Size.Y.Offset
+    -- Update the position for the next label and increase height accordingly
+    currentPositionY = currentPositionY + newLabelHeight
 
     -- Adjust the content frame height to fit the new message
     contentFrame.Size = UDim2.new(1, 0, 0, currentPositionY)
@@ -106,4 +110,29 @@ function print(...)
     
     -- Call the original print to ensure it still works in the output
     oldPrint(unpack(args))
+end
+
+-- Redirecting warn and error functions to capture all logs
+local oldWarn = warn
+warn = function(...)
+    local args = {...}
+    local message = "[WARN] " .. table.concat(args, " ")
+    updateConsole(message)
+    oldWarn(unpack(args))  -- Ensure original warn behavior is preserved
+end
+
+local oldError = error
+error = function(...)
+    local args = {...}
+    local message = "[ERROR] " .. table.concat(args, " ")
+    updateConsole(message)
+    oldError(unpack(args))  -- Ensure original error behavior is preserved
+end
+
+-- Redirecting printidentity to ensure it appears in the custom console
+local oldPrintIdentity = printidentity
+printidentity = function()
+    local identity = oldPrintIdentity()
+    updateConsole("printidentity: " .. identity)
+    return identity
 end
