@@ -18,8 +18,8 @@ titleLabel.BackgroundTransparency = 1
 titleLabel.Text = "Custom S.E.T Logging GUI"
 titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
 titleLabel.TextSize = 18
-titleLabel.TextXAlignment = Enum.TextXAlignment.Center  -- Corrected to use TextXAlignment
-titleLabel.TextYAlignment = Enum.TextYAlignment.Center  -- Corrected to use TextYAlignment
+titleLabel.TextXAlignment = Enum.TextXAlignment.Center
+titleLabel.TextYAlignment = Enum.TextYAlignment.Center
 titleLabel.Parent = frame
 
 -- Close Button (X)
@@ -66,8 +66,8 @@ logLabel.Parent = contentFrame
 local currentPositionY = 0
 
 -- Function to update the console with new print messages
-local function updateConsole(message)
-    -- Create a new label for each print message with timestamp
+local function updateConsole(message, messageType)
+    -- Create a new label for each message with timestamp
     local timeStamp = os.date("%X")  -- Get current time in HH:MM:SS format
     local dateStamp = os.date("%x")  -- Get current date in MM/DD/YYYY format
     
@@ -76,6 +76,16 @@ local function updateConsole(message)
     -- Create a new label for the formatted message
     local newLabel = logLabel:Clone()
     newLabel.Text = formattedMessage
+
+    -- Set the color depending on the message type
+    if messageType == "warn" then
+        newLabel.TextColor3 = Color3.fromRGB(255, 255, 0)  -- Yellow for warnings
+    elseif messageType == "error" then
+        newLabel.TextColor3 = Color3.fromRGB(255, 0, 0)  -- Red for errors
+    else
+        newLabel.TextColor3 = Color3.fromRGB(255, 255, 255)  -- White for normal messages
+    end
+
     newLabel.Parent = contentFrame
 
     -- Position the label below the previous one
@@ -102,8 +112,32 @@ function print(...)
     local message = table.concat(args, " ")
     
     -- Update the custom console GUI with the new print message
-    updateConsole(message)
+    updateConsole(message, "print")
     
     -- Call the original print to ensure it still works in the output
     oldPrint(unpack(args))
+end
+
+-- Redirecting the warn function to the custom console
+local oldWarn = warn
+function warn(...)
+    -- Concatenate all the arguments into a string
+    local args = {...}
+    local message = table.concat(args, " ")
+    
+    -- Update the custom console GUI with the new warning message
+    updateConsole(message, "warn")
+    
+    -- Call the original warn to ensure it still works in the output
+    oldWarn(unpack(args))
+end
+
+-- Redirecting the error function to the custom console
+local oldError = error
+function error(message, level)
+    -- Update the custom console GUI with the new error message
+    updateConsole(message, "error")
+    
+    -- Call the original error to ensure it still works as expected
+    oldError(message, level)
 end
