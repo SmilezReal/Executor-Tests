@@ -47,7 +47,7 @@ scrollFrame.Parent = frame
 
 -- Content frame inside the scrollable container to hold the logs
 local contentFrame = Instance.new("Frame")
-contentFrame.Size = UDim2.new(1, 0, 0, 100)  -- Initial height, will grow
+contentFrame.Size = UDim2.new(1, 0, 0, 0)  -- Initial size is zero (it will grow)
 contentFrame.Position = UDim2.new(0, 0, 0, 0)
 contentFrame.BackgroundTransparency = 1
 contentFrame.Parent = scrollFrame
@@ -79,18 +79,11 @@ local function updateConsole(message)
     local currentHeight = contentFrame.Size.Y.Offset
     contentFrame.Size = UDim2.new(1, 0, 0, currentHeight + 20)
 
+    -- Update the scrolling frame's canvas size to match the content frame height
+    scrollFrame.CanvasSize = UDim2.new(0, 0, 0, contentFrame.Size.Y.Offset)
+
     -- Ensure the scroll frame scrolls to the bottom
     scrollFrame.CanvasPosition = Vector2.new(0, scrollFrame.CanvasSize.Y.Offset)
-
-    -- If there are too many messages, destroy the oldest ones
-    if contentFrame.Size.Y.Offset > 500 then  -- If the content frame grows too large
-        contentFrame:Destroy()
-        contentFrame = Instance.new("Frame")  -- Recreate it for fresh content
-        contentFrame.Size = UDim2.new(1, 0, 0, 100)  -- Reset the size
-        contentFrame.Position = UDim2.new(0, 0, 0, 0)
-        contentFrame.BackgroundTransparency = 1
-        contentFrame.Parent = scrollFrame
-    end
 end
 
 -- Redirecting the print function to the custom console
