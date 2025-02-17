@@ -136,3 +136,9 @@ printidentity = function()
     updateConsole("printidentity: " .. identity)
     return identity
 end
+
+-- Constantly updating the GUI every 0.1 seconds (100ms)
+while true do
+    wait(0.1)  -- This will check for updates every 0.1 seconds
+    -- Any other functionality that needs to be updated frequently can be added here
+end
