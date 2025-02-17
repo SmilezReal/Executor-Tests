@@ -192,12 +192,13 @@ print("--------------------------------------------------")
 wait(5)
 print("S.E.T LVL Test Running... Please Wait...")
 
-if getidentity then
-    print("Execution Level: " .. printidentity())
-elseif getscriptlevel then
-    print("Execution Level: " .. getsidentity())
-else
-    print("Execution Level: Unknown (Unsupported Function)")
+-- Try to run printidentity() but ignore errors
+local success, err = pcall(function()
+    printidentity()
+end)
+
+if not success then
+    warn("printidentity() failed: " .. err)
 end
 
 wait(5)
@@ -206,7 +207,15 @@ print("S.E.T VULN Test Starting...")
 print("--------------------------------------------------")
 wait(5)
 print("S.E.T VULN Test Running... Please Wait...")
-loadstring(game:HttpGet("https://raw.githubusercontent.com/SmilezReal/Executor-Tests/refs/heads/main/VulnTest.lua",true))()
+
+-- Also protect the VULN test loadstring
+local success, err = pcall(function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/SmilezReal/Executor-Tests/refs/heads/main/VulnTest.lua", true))()
+end)
+if not success then
+    warn("VULN Test failed: " .. err)
+end
+
 wait(5)
 print("--------------------------------------------------")
 print("S.E.T Checks Complete.")
