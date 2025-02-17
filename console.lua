@@ -18,8 +18,8 @@ titleLabel.BackgroundTransparency = 1
 titleLabel.Text = "Custom S.E.T Logging GUI"
 titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
 titleLabel.TextSize = 18
-titleLabel.TextXAlignment = Enum.TextXAlignment.Center  -- Corrected to use TextXAlignment
-titleLabel.TextYAlignment = Enum.TextYAlignment.Center  -- Corrected to use TextYAlignment
+titleLabel.TextXAlignment = Enum.TextXAlignment.Center
+titleLabel.TextYAlignment = Enum.TextYAlignment.Center
 titleLabel.Parent = frame
 
 -- Close Button (X)
