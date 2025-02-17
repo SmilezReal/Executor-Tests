@@ -17,25 +17,20 @@ local function test(name, aliases, callback)
 	running += 1
 
 	task.spawn(function()
-		if not callback then
-			print("⏺️ " .. name)
-		elseif not getGlobal(name) then
-			fails += 1
-			warn("⛔ " .. name)
-		else
-			local success, message = pcall(callback)
-	
-			if success then
-				passes += 1
-				print("✅ " .. name .. (message and " • " .. message or ""))
+		if callback then
+			if getGlobal(name) then
+				local success, _ = pcall(callback)
+				if success then
+					passes += 1
+				else
+					fails += 1
+				end
 			else
 				fails += 1
-				warn("⛔ " .. name .. " failed: " .. message)
 			end
 		end
 	
 		local undefinedAliases = {}
-	
 		for _, alias in ipairs(aliases) do
 			if getGlobal(alias) == nil then
 				table.insert(undefinedAliases, alias)
@@ -44,20 +39,13 @@ local function test(name, aliases, callback)
 	
 		if #undefinedAliases > 0 then
 			undefined += 1
-			warn("⚠️ " .. table.concat(undefinedAliases, ", "))
 		end
 
 		running -= 1
 	end)
 end
 
--- Header and summary
-
-print("\n")
-
-print("UNC Environment Check")
-print("✅ - Pass, ⛔ - Fail, ⏺️ - No test, ⚠️ - Missing aliases\n")
-
+-- Summary only
 task.defer(function()
 	repeat task.wait() until running == 0
 
@@ -65,7 +53,6 @@ task.defer(function()
 	local outOf = passes .. " out of " .. (passes + fails)
 
 	print("\n")
-
 	print("UNC Summary")
 	print("✅ Tested with a " .. rate .. "% success rate (" .. outOf .. ")")
 	print("⛔ " .. fails .. " tests failed")
