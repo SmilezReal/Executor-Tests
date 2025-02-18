@@ -24,7 +24,9 @@ local function onFirstNotificationPressed(buttonPressed)
         game:GetService("StarterGui"):SetCore("DevConsoleVisible", true)
         for i = 1, 50 do print("") end
         printidentity()
+        print("level checked successfully. please wait this console will close automatically after 6 seconds")
         wait(6)
+        game:GetService("StarterGui"):SetCore("DevConsoleVisible", false)
         local LevelNotification = Instance.new("BindableFunction")
         LevelNotification.OnInvoke = onLevelSelected
         
