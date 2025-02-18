@@ -32,7 +32,7 @@ local function onFirstNotificationPressed(buttonPressed)
         StarterGui:SetCore("SendNotification", {
             Title = "S.E.T",
             Text = "Please Select What Level Your Executor Is To Continue.",
-            Duration = 5,
+            Duration = 100,
             Button1 = "Level 3 Or Lower",
             Button2 = "Level 4 Or Higher",
             Callback = LevelNotification
@@ -48,7 +48,7 @@ FirstNotification.OnInvoke = onFirstNotificationPressed
 StarterGui:SetCore("SendNotification", {
     Title = "S.E.T",
     Text = "Want To Check Your Executor's Level?",
-    Duration = 5,
+    Duration = 100,
     Button1 = "Sure",
     Button2 = "Nah",
     Callback = FirstNotification
