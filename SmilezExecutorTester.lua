@@ -24,8 +24,19 @@ local function onFirstNotificationPressed(buttonPressed)
         game:GetService("StarterGui"):SetCore("DevConsoleVisible", true)
         for i = 1, 50 do print("") end
         printidentity()
+        wait(6)
+        local LevelNotification = Instance.new("BindableFunction")
+        LevelNotification.OnInvoke = onLevelSelected
+        
+        StarterGui:SetCore("SendNotification", {
+            Title = "S.E.T",
+            Text = "Please Select What Level Your Executor Is To Continue.",
+            Duration = 100,
+            Button1 = "Level 3 Or Lower",
+            Button2 = "Level 4 Or Higher",
+            Callback = LevelNotification
+        })
     elseif buttonPressed == "Nah" then
-        -- Show second notification when "Nah" is pressed
         local LevelNotification = Instance.new("BindableFunction")
         LevelNotification.OnInvoke = onLevelSelected
         
