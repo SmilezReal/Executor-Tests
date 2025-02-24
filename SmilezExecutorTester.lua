@@ -23,8 +23,8 @@ local function onFirstNotificationPressed(buttonPressed)
     if buttonPressed == "Yes" then
         game:GetService("StarterGui"):SetCore("DevConsoleVisible", true)
         for i = 1, 50 do print("") end
-        printidentity()
-        print("level checked successfully. please wait this console will close automatically after 6 seconds")
+        printidentity("This Executor Is Using " .. tostring(identifyexecutor()) .. " API | This Executor Is Level ")
+        print("please wait. this console will automatically close in 6 seconds. please dont press or do anything")
         wait(6)
         game:GetService("StarterGui"):SetCore("DevConsoleVisible", false)
         local LevelNotification = Instance.new("BindableFunction")
@@ -60,7 +60,7 @@ FirstNotification.OnInvoke = onFirstNotificationPressed
 -- Show the first notification
 StarterGui:SetCore("SendNotification", {
     Title = "S.E.T",
-    Text = "Want To Check Your Executor's Level?",
+    Text = "Want To Check Your Executor's API & Level?",
     Duration = 100,
     Button1 = "Yes",
     Button2 = "No",
