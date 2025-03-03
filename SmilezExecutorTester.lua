@@ -5,7 +5,7 @@ local function onLevelSelected(buttonPressed)
     if buttonPressed == "Yes" then
         -- Run the loadstring when "Level 3 Or Lower" is pressed
         local success, err = pcall(function()
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/s4n8m2k6q1h9j7v5t3f2r9p7y2g8l3w6x7z9v5/s9r3v5k7t1f2n9l7y2g8q4m6p8z1x3w7b9j2v5/refs/heads/main/tester.lua", true))()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/SmilezReal/Executor-Tests/refs/heads/main/Unc-Vuln-Testing-Custom-GUI.lua", true))()
         end)
 
         if not success then
